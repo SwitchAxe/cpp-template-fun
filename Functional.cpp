@@ -247,8 +247,8 @@ namespace Functional {
     template <class Ret, class... Ts> struct Function {
       using signature = std::tuple<typename Function<Ret, Ts>::signature...>;
       signature pattern;
-      using function_signature = std::function<Ret(typename
-														 Function<Ret, Ts>::signature...)>;
+      using function_signature =
+        std::function<Ret(typename Function<Ret, Ts>::signature...)>;
       std::map<signature, function_signature> cache;
 
       constexpr void operator=(function_signature f) {
@@ -258,7 +258,7 @@ namespace Functional {
 
       constexpr auto
       define(auto... args)
-			-> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
+          -> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
 	pattern = std::make_tuple(Function<Ret, Ts>(args).pattern...);
 	return *this;
       }
@@ -302,7 +302,7 @@ namespace Functional {
 
       constexpr auto
       define(auto arg)
-			-> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
+	  -> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
 	pattern = arg;
 	return *this;
       }
@@ -317,16 +317,15 @@ namespace Functional {
       signature pattern;
       std::map<signature, function_signature> cache;
       using possible_destructures = std::variant<std::monostate,
-						 std::pair<T, List<T>>,
-						 List<T>,
-						 T>;
+                                                                              std::pair<T, List<T>>,
+						                              List<T>,
+						                              T>;
       constexpr Ret operator()(List<T> arg) {
 	auto l = Visit::sort_rank(cache);
 	possible_destructures got;
 	for (auto k : l) {
 	  auto opt =
-	    std::visit([&](auto x)
-						-> std::optional<possible_destructures> {
+	    std::visit([&](auto x) -> std::optional<possible_destructures> {
 	      return Visit::visit(x, arg);
 	    }, k);
 	  if (opt != std::nullopt) {
@@ -358,7 +357,7 @@ namespace Functional {
 
       constexpr auto
       define(auto arg)
-			-> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
+	  -> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
 	pattern = arg;
 	return *this;
       }
