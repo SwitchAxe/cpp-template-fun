@@ -300,8 +300,7 @@ namespace Functional {
 	pattern = {};
       }
 
-      constexpr
-      auto
+      constexpr auto
       define(auto arg)
 			-> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
 	pattern = arg;
@@ -357,8 +356,7 @@ namespace Functional {
 	pattern = {};
       }
 
-      constexpr
-      auto
+      constexpr auto
       define(auto arg)
 			-> std::add_lvalue_reference_t<std::remove_pointer_t<decltype(this)>> {
 	pattern = arg;
