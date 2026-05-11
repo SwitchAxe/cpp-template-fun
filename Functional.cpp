@@ -33,11 +33,11 @@ namespace Functional {
     }
 
     template <class Ret, class T> Ret call(std::monostate, T) {
-      throw std::logic_error {"Monostate, shoudln't happen\n"};
+      throw std::logic_error {"Monostate, shouldn't happen\n"};
     }
 
     template <class Ret> Ret call(std::monostate, std::monostate) {
-      throw std::logic_error {"Monostate, shoudln't happen\n"};
+      throw std::logic_error {"Monostate, shouldn't happen\n"};
     }
 
     template <class Ret, class T, class U, class V>
